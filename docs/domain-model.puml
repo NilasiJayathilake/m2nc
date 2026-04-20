@@ -1,0 +1,145 @@
+@startuml
+<style>
+class {
+  Padding 5
+  RoundCorner 10
+  HorizontalAlignment center
+  LineThickness 0.5
+  FontSize 12
+  LineStyle 2
+}
+
+arrow {
+  LineStyle 2
+  LineThickness 0.75
+}
+</style>
+
+skinparam {
+  BackgroundColor Transparent
+  ArrowFontColor DimGray
+  CloudBorderColor DimGray
+  class {
+    BackgroundColor<<Aggregate Root>> #D5A6BD
+    BackgroundColor<<Enum>> #D9D9D9
+    BackgroundColor<<Value Object>> #B6D7A8
+  }
+}
+
+hide circle
+hide methods
+
+class User<<Aggregate Root>>{
+    id: string
+    name: string
+    email: string
+    role: userRole
+}
+
+class UserRole<<Enum>>{
+    FRIEND
+    NEWCOMER
+}
+
+class UserProfile<<Value Object>>{
+    userId: string
+    country: string
+    city: string
+    student: boolean
+    experience: string
+    living: livingSituation
+    transportation: transportation
+}
+
+class Living<<Enum>>{
+    RENTED
+    OWNED
+    SHARED
+    HOSTEL
+    UNIVERSITY
+}
+
+class Transportation<<Enum>>{
+    DAILY_COMMUTE
+    OWN_VEHICLE
+    UBER
+    CYCLE
+    OTHER
+}
+
+
+class FriendAvatar<<Aggregate Root>>{
+    id: string
+    userId: string
+    tone: avatarTone
+    personality: avatarPersonality
+    character: avatarCharacter
+    keyAreas: keyArea
+    completionScore: number
+    live: boolean
+}
+
+class KeyAreas<<Enum>>{
+    HOUSING
+    HEALTHCARE
+    PARENTING
+    LIFESTYLE
+    EDUCATION
+    FOOD
+    LAW
+    SIDE-HUSTLES
+    OTHER
+}
+
+class AvatarTone<<Enum>>{
+    PROFESSIONAL
+    CASUAL
+}
+
+class AvatarPersonality<<Enum>>{
+    FUNNY
+    QUIRKY
+    FRIENDLY
+}
+
+class KnowledgeArtifact <<Entity>> {
+    id: string
+    topic: keyAreas
+    question: string
+    answer: string
+    contextTags: string[]   // parent, student, etc.
+    sentiment: Sentiment
+    city: string
+    source: KnowledgeSource
+    summary: string
+    createdAt: dateTime
+    updatedAt: dateTime
+}
+
+class KnowledgeSource <<Enum>> {
+    MICRO_SESSION
+    REAL_QUESTION
+    COMMUNITY
+    RATING
+}
+
+class Sentiment <<Enum>> {
+          POSITIVE
+          NEGATIVE
+          NEUTRAL
+}
+
+User -right- UserProfile
+User -up- UserRole
+UserProfile -up- KeyAreas
+UserProfile -up- Living
+UserProfile -right- Transportation
+FriendAvatar -down- KnowledgeArtifact
+User -down[hidden]- FriendAvatar
+AvatarTone -right- FriendAvatar
+AvatarPersonality -left- FriendAvatar
+KnowledgeArtifact -right- KnowledgeSource
+KnowledgeArtifact -right- Sentiment
+
+
+@enduml
