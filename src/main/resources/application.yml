@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: M2NC
+  profiles:
+    active: local
+  data:
+    mongodb:
+      auto-index-creation: true
+  mongodb:
+    uri:
