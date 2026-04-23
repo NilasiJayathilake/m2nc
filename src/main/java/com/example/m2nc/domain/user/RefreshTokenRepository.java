@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RefreshTokenRepository extends MongoRepository<RefreshToken, String> {
+    Optional<RefreshToken> findByRefreshToken(String refreshToken);
     Optional<RefreshToken> findByRefreshTokenAndStatus(String refreshToken, RefreshTokenStatus status);
 
     List<RefreshToken> findAllByUserIdAndStatus(String userId, RefreshTokenStatus status);
+
+    void deleteByUserId(String userId);
 }

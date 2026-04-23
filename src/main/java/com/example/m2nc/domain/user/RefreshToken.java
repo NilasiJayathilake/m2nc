@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Data
@@ -22,9 +23,10 @@ public class RefreshToken {
     private String refreshToken;
     private RefreshTokenStatus status;
     private int refreshCount;
+
     @CreatedDate
     private LocalDateTime createdAt;
-    private LocalDateTime expiresAt;
+    private Instant expiresAt;
     private LocalDateTime lastUsedAt;
 
 }

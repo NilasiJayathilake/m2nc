@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: M2NC
+  data:
+    mongodb:
+      auto-index-creation: true
+  mongodb:
+    uri: mongodb://localhost:27017/m2nc-local
+jwt:
+  secret: cR+9T6Dpihf5TVLDMrvCmH1ojaHPUEHfwc6OWVyb7fJZRReKDOHxL4s6oCLmhVyTL64H5w94xePg3wWy3gp2WA==
+  access-token-expiration: 86400000
+  refresh-token-expiration: 604800000
